@@ -1,0 +1,26 @@
+---
+title: "HW1"
+output: html_document
+date: '2022-09-28'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Exploratory Data Analysis
+
+Question 1:
+```{r}
+?mpg
+hist(mpg$hwy)
+```
+I see that the most common highway miles per gallon are between 15 and 30, with the lowest between 35 and 45.
+
+Question 2:
+```{r}
+x <- mpg$hwy
+y <- mpg$cty
+plot(x,y)
+```
+The relationship appears to be that when highway miles per gallon increases, city miles per gallon also increases.
