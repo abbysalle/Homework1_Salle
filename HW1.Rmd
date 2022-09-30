@@ -1,26 +1,109 @@
 ---
 title: "HW1"
+author: "Abigail Salle"
 output: html_document
-date: '2022-09-28'
+date: '2022-10-02'
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-Exploratory Data Analysis
-
+<br>
+Main Idea Questions:
+<br>
+<br>
+<br>
+ 1. Supervised learning tries to accurately predict or estimate future responses based on given input and output data. The data Y is the supervisor.  
+  Unsupervised learning means that the observations X have no associated response Y. We still can find relationships between X’s.  
+   The difference is the presence or absence of response data Y. In both we are learning patterns, but in unsupervised learning we just won’t know the true pattern in the end.  
+    <br>
+    <br>
+    <br>
+2. Regression models have quantitative / numerical outcomes while classification have qualitative / categorical outcomes.  
+ For machine learning, this means regression models are continuous and classification models are noncontinuous.
+ <br>
+ <br>
+ <br>
+3. Two common metrics for regression problems are mean square error and r square.  
+ Two common metrics for classification problems are accuracy and confusion matrix.  
+  <br>
+  <br>
+  <br>
+4. Descriptive models: Models intended to visually emphasize trends in data (ex. scatterplot).  
+ Predictive models: Combination of models to predict best with least amount of error possible.  
+  Inferential models: Shows the relationship between outcome and predictors to see which features in particular are significant.  
+   <br>
+   <br>
+   <br>
+5. Mechanistic assumes a parametric form while empirically driven has no assumptions on f.  
+ They are similar in the chance of possible overfitting and are different in flexibility and requirement of observation size.  
+  <br>
+Empirically driven is more flexible which makes it easier to understand. It also takes real world data to make the theory which seems easier than making a theory first and then trying to predict real world events.  
+ <br>  
+  The Bias-Variance tradeoff relates to ML models because a simple model will have high bias and low variance but a flexible model will have low bias and high variance. In a perfect world we want low both, so we must find models that best manages the two, which is the tradeoff.  
+ <br>
+ <br>
+ <br>
+6. "Given a voter’s profile/data, how likely is it that they will vote in favor of the candidate?"  
+ This is overall prediction and wants accuracy with least error, so it would be predictive.  
+  <br>
+"How would a voter’s likelihood of support for the candidate change if they had personal contact with the candidate?"  
+ This has to do with one particular feature (knowing the candidate) so it would be inferential.
+<br>
+<br>
+<br>
+<br>
+<br>
+Exploratory Data Analysis:
+```{r}
+library(tidyverse)
+head(mpg)
+```
+<br>
+<br>
 Question 1:
 ```{r}
-?mpg
 hist(mpg$hwy)
 ```
-I see that the most common highway miles per gallon are between 15 and 30, with the lowest between 35 and 45.
-
+<br>
+I see that the most common highway miles per gallon are between 15 and 30, with the lowest between 35 and 45. It appears to be right skewed which means frequency is higher at lower mpg.  
+ <br>
+<br>
+<br>
 Question 2:
 ```{r}
 x <- mpg$hwy
 y <- mpg$cty
 plot(x,y)
 ```
-The relationship appears to be that when highway miles per gallon increases, city miles per gallon also increases.
+<br>
+The relationship appears to be that when highway miles per gallon increases, city miles per gallon also increases. It looks like a relatively straight line could pass through most points, giving it a some-what strong positive correlation.  
+ <br>
+<br>
+<br>
+Question 3.
+```{r}
+table(mpg$manufacturer)
+ggplot(data=mpg) + geom_bar(mapping=aes(y= forcats::fct_rev(forcats::fct_infreq(manufacturer))))
+```
+Dodge produced the most cars and Lincoln produced the least cars.  
+ <br>
+<br>
+<br>
+Question 4:
+```{r}
+ggplot(mpg, aes(x=factor(cyl), y=hwy))+ geom_boxplot()
+```
+*** describe pattern here ***  
+ <br>
+<br>
+<br>
+Question 5:
+```{r}
+library("corrplot")
+mpg2 <- mpg[,-c(1,2,6,7,10,11)]
+ M <- cor(mpg2)
+corrplot(M, method='square', type='lower')
+
+```
+
